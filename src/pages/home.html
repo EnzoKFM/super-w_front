@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Accueil</title>
+    <link href="../css/output.css" rel="stylesheet">
+</head>
+<body>
+    <div class="text-center">
+        <h1 class="text-3xl underline">
+            Bienvenue à Super-W !
+        </h1>
+        <h2 class="text-xl">
+            Ici, tout nos produits sont fait-maison, et avec amour !
+        </h2>
+    </div>
+    <div>
+        <ul id="listProduits" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></ul>
+        <script>
+            //fetch("localhost:5000/")
+            const produits = [
+                { id: 0, label: "Lait au fraise", description: "Je suis un mignon produit", image: "../img/lait_fraise.png", price: 500, category: "categorie" },
+                { id: 1, label: "Salle de sport", description: "Je suis un mignon produit", image: "../img/salle_sport.jpg", price: 500, category: "categorie" },
+                { id: 2, label: "Game Cube", description: "Je suis un mignon produit", image: "../img/gamecube.jpg", price: 500, category: "categorie" }
+            ];
+
+            document.getElementById('listProduits').innerHTML = produits.map((produit) => {
+                return `
+                <li class="border rounded p-4 text-center shadow hover:shadow-lg transition">
+                    <img src="${produit.image}" alt="${produit.label}" class="mx-auto mb-2 max-h-40 object-contain">
+                    <h3 class="text-lg font-semibold">${produit.label}</h3>
+                    <p class="text-gray-500">${produit.description}</p>
+                    <p class="text-xl font-bold my-2">${produit.price} €</p>
+                    <button onclick="ajouterAuPanier(${produit.id})" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                        Ajouter au panier
+                    </button>
+                </li>`;
+            }).join('');
+
+            function ajouterAuPanier(id) {
+                alert(`Produit N°${id} ajouté au panier !`);
+            }
+
+        </script>
+    </div>
+    
+</body>
+</html>

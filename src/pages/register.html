@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Créer un compte</title>
+    <link href="../css/output.css" rel="stylesheet">
+</head>
+<body>
+    <div class="text-center">
+        <h2 class="font-bold text-3xl">S'inscrire</h2><br>
+        <form action="http://localhost:3000/" method="POST" class="mb-1">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" value="" class="border rounded-lg">
+            </div><br>
+            
+            <div class="mb-5">
+                <label for="password">Password:</label>
+                <input type="text" id="password" name="password" value="" class="border rounded-lg">
+            </div>
+
+            <input type="submit" value="Submit" class="border bg-gray-300 rounded-lg px-4">
+        </form>
+        <h3 class="mb-10">
+            Déjà un compte ? <a href="http://localhost:3000/pages/connection" class="text-blue-500 hover:underline">Se connecter</a>
+        </h3>
+        
+        <a href="http://localhost:3000/pages/home.html" class="border rounded-lg px-4 cursor-pointer">Retour</a>
+    </div>
+    
+</body>
+</html>

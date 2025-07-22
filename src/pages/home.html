@@ -16,13 +16,19 @@
         
     </div>
     <div class="fixed right-5 top-3">
-        <button onClick="togglePanier()">
+        <button onClick="togglePanier()" class="cursor-pointer">
             <img src="../img/panier.png" class="mx-auto mb-2 max-h-12">
         </button>
+        <a href="http://localhost:3000/pages/connection" >
+            <button class="cursor-pointer">
+                <img src="../img/user.png" class="mx-auto mb-2 max-h-12">
+            </button>
+        </a>
+        
     </div>
     <div id="panierOverlay" class="fixed inset-0 bg-black/50 flex justify-end hidden">
         <div class="bg-white w-80 p-4 shadow-lg overflow-y-auto">
-            <button onclick="togglePanier()" class="text-red-500 font-bold mb-4">Fermer</button>
+            <button onclick="togglePanier()" class="text-red-500 font-bold mb-4 cursor-pointer">Fermer</button>
             <h2 class="text-2xl font-bold mb-2">Votre Panier</h2>
             <ul id="panier" class="space-y-2"></ul>
             <p class="mt-2 font-bold">Total : <span id="total">0</span> €</p>
@@ -52,7 +58,7 @@
                         <h3 class="text-lg font-semibold">${produit.label}</h3>
                         <p class="text-gray-500">${produit.description}</p>
                         <p class="text-xl font-bold my-2">${produit.price} €</p>
-                        <button onclick="ajouterAuPanier(${produit.id})" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                        <button onclick="ajouterAuPanier(${produit.id})" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition cursor-pointer">
                             Ajouter au panier
                         </button>
                     </li>`;
@@ -88,11 +94,11 @@
                     <li class="flex justify-between items-center border-b py-2">
                         <span>${item.produit.label}</span>
                         <div class="flex items-center gap-2">
-                            <button onclick="modifierQuantite(${index}, ${item.quantite - 1})" class="text-red-500 font-bold px-2">-</button>
+                            <button onclick="modifierQuantite(${index}, ${item.quantite - 1})" class="text-red-500 font-bold px-2 cursor-pointer">-</button>
                             <span>${item.quantite}</span>
-                            <button onclick="modifierQuantite(${index}, ${item.quantite + 1})" class="text-green-500 font-bold px-2">+</button>
+                            <button onclick="modifierQuantite(${index}, ${item.quantite + 1})" class="text-green-500 font-bold px-2 cursor-pointer">+</button>
                             <span>${item.produit.price * item.quantite} €</span>
-                            <span onclick="retirerProduit(${index})" >
+                            <span onclick="retirerProduit(${index})" class="cursor-pointer" >
                                 <img src="../img/remove.png" class="max-h-5">
                             </span>
                         </div>

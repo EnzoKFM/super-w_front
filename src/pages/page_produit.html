@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <link href="../css/output.css" rel="stylesheet">
+</head>
+<body>
+    <div class="text-center">
+        <h1 id="label-produit" class="text-3xl font-bold mb-5">Chargement...</h1>
+        <div class="carousel text-center">
+            <div class="carousel-container">
+                <img id="carousel-image" src="" alt="Image du produit" class="mx-auto h-64" />
+            </div>
+            <div class="mt-4">
+                <button onclick="changeImage(-1)">◀</button>
+                <button onclick="changeImage(1)">▶</button>
+            </div>
+        </div>
+        <div class="mb-10">
+            <p id="description-produit"></p>
+            <p><strong>Prix :</strong> <span id="price-produit"></span> €</p>
+        </div>
+
+        <a href="http://localhost:3000/pages/home.html" class="border rounded border-gray-300 px-2 py-1 cursor-pointer">Retour</a>
+    </div>
+
+    <script>
+        const produits = [
+            { id: 0, label: "Lait au fraise", description: "Je suis un mignon produit", images: ["../img/lait_fraise.png", "../img/salle_sport.jpg", "../img/gamecube.jpg"], price: 500, category: "categorie" },
+            { id: 1, label: "Salle de sport", description: "Je suis un mignon produit", images: ["../img/salle_sport.jpg"], price: 500, category: "categorie" },
+            { id: 2, label: "Game Cube", description: "Je suis un mignon produit", images: ["../img/gamecube.jpg"], price: 500, category: "categorie" }
+        ];
+        let indexImage = 0;
+        let imagesProduit = [];
+
+        function showImage() {
+            const imgElement = document.getElementById("carousel-image");
+            imgElement.src = imagesProduit[indexImage];
+        }
+
+        function changeImage(direction) {
+            indexImage = (indexImage + direction + imagesProduit.length) % imagesProduit.length;
+            showImage();
+        }
+
+        // Récupérer l'ID depuis l'URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const produitId = parseInt(urlParams.get('id'));
+
+        // Chercher le produit correspondant
+        const produit = produits.find(p => p.id === produitId);
+
+        if (produit) {
+            document.getElementById("label-produit").textContent = produit.label;
+            document.getElementById("description-produit").textContent = produit.description;
+            document.getElementById("price-produit").textContent = produit.price;
+
+            imagesProduit = produit.images;
+            // Initialisation
+            showImage();
+            setInterval(() => changeImage(1), 4000);
+        } else {
+            document.body.innerHTML = "<h2>Produit introuvable</h2>";
+        }
+    </script>
+</body>
+</html>

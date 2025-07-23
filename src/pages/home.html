@@ -6,66 +6,68 @@
     <link href="../css/output.css" rel="stylesheet">
 </head>
 <body>
-    <div class="text-center mb-5">
-        <h1 class="text-3xl underline">
-            Bienvenue à Super-W !
-        </h1>
-        <h2 class="text-xl">
-            Ici, tout nos produits sont fait-maison, et avec amour !
-        </h2>
-        
-    </div>
-    <div class="fixed right-5 top-3">
-        <button onClick="togglePanier()" class="cursor-pointer">
-            <img src="../img/panier.png" class="mx-auto mb-2 max-h-12">
-        </button>
-        <a href="http://localhost:3000/pages/connection" >
-            <button class="cursor-pointer">
-                <img src="../img/user.png" class="mx-auto mb-2 max-h-12">
+    <div>
+        <div class="text-center mb-5">
+            <h1 class="text-3xl underline">
+                Bienvenue à Super-W !
+            </h1>
+            <h2 class="text-xl">
+                Ici, tout nos produits sont fait-maison, et avec amour !
+            </h2>
+            
+        </div>
+        <div class="fixed right-5 top-3">
+            <button onClick="togglePanier()" class="cursor-pointer">
+                <img src="../img/panier.png" class="mx-auto mb-2 max-h-12">
             </button>
-        </a>
-        
-    </div>
-    <div id="panierOverlay" class="fixed inset-0 bg-black/50 flex justify-end hidden">
-        <div class="bg-white w-80 p-4 shadow-lg overflow-y-auto">
-            <button onclick="togglePanier()" class="text-red-500 font-bold mb-4 cursor-pointer">Fermer</button>
-            <h2 class="text-2xl font-bold mb-2">Votre Panier</h2>
-            <ul id="panier" class="space-y-2"></ul>
-            <p class="mt-2 font-bold">Total : <span id="total">0</span> €</p>
+            <a href="http://localhost:3000/pages/connection" >
+                <button class="cursor-pointer">
+                    <img src="../img/user.png" class="mx-auto mb-2 max-h-12">
+                </button>
+            </a>
+            
+        </div>
+        <div id="panierOverlay" class="fixed inset-0 bg-black/50 flex justify-end hidden">
+            <div class="bg-white w-80 p-4 shadow-lg overflow-y-auto">
+                <button onclick="togglePanier()" class="text-red-500 font-bold mb-4 cursor-pointer">Fermer</button>
+                <h2 class="text-2xl font-bold mb-2">Votre Panier</h2>
+                <ul id="panier" class="space-y-2"></ul>
+                <p class="mt-2 font-bold">Total : <span id="total">0</span> €</p>
+            </div>
         </div>
     </div>
+    <div class="my-2">
+        <input id="search-bar" type="search" placeholder="Rechercher un produit..." class="border rounded border-gray-300 px-2 py-1 mx-2"/>
+    </div>
     <div>
-        <ul id="listProduits" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></ul>
+        <ul id="listProduits" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mx-2" data-product-cards-container>
+            <template data-product-template>
+                <li class="border rounded p-4 text-center shadow hover:shadow-lg transition">
+                    <a href="http://localhost:3000/pages/page_produit?id=${produit.id}" data-page>
+                        <img src="${produit.images[0]}" alt="${produit.label}" class="mx-auto mb-2 max-h-40 object-contain" data-image>
+                        <h3 class="text-lg font-semibold" data-label></h3>
+                    </a>
+                    <p class="text-gray-500" data-description></p>
+                    <p class="text-xl font-bold my-2" data-price></p>
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition cursor-pointer" data-button>
+                        Ajouter au panier
+                    </button>
+                </li>
+            </template>
+        </ul>
     </div>
 
     <script>
         //fetch("localhost:5000/")
-        const produits = [
+        const produitsRecup = [
             { id: 0, label: "Lait au fraise", description: "Je suis un mignon produit", images: ["../img/lait_fraise.png"], price: 500, category: "categorie" },
             { id: 1, label: "Salle de sport", description: "Je suis un mignon produit", images: ["../img/salle_sport.jpg"], price: 500, category: "categorie" },
             { id: 2, label: "Game Cube", description: "Je suis un mignon produit", images: ["../img/gamecube.jpg"], price: 500, category: "categorie" }
         ];
 
+        let produits = [];
         // Récupérer le panier depuis localStorage ou tableau vide par défaut
         const panierItems = JSON.parse(localStorage.getItem('panier')) || [];
-
-        afficherProduits();
-        afficherPanier();
-
-        function afficherProduits(){
-            document.getElementById('listProduits').innerHTML = produits.map((produit) => {
-                return `
-                <li class="border rounded p-4 text-center shadow hover:shadow-lg transition">
-                    <a href="http://localhost:3000/pages/page_produit?id=${produit.id}"><img src="${produit.images[0]}" alt="${produit.label}" class="mx-auto mb-2 max-h-40 object-contain">
-                    <h3 class="text-lg font-semibold">${produit.label}</h3></a>
-                    <p class="text-gray-500">${produit.description}</p>
-                    <p class="text-xl font-bold my-2">${produit.price} €</p>
-                    <button onclick="ajouterAuPanier(${produit.id})" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition cursor-pointer">
-                        Ajouter au panier
-                    </button>
-                </li>`;
-            }).join('');
-        }
         
 
         function ajouterAuPanier(id) {
@@ -75,7 +77,7 @@
                 panierItems[index].quantite++;
             } else {
                 // Nouveau produit ajouté
-                const produit = produits.find(p => p.id === id);
+                const produit = produitsRecup.find(p => p.id === id);
                 panierItems.push({ produit, quantite: 1 });
             }
             afficherPanier();
@@ -91,8 +93,7 @@
         }
 
         function afficherPanier() {
-            const panier = document.getElementById('panier');
-            panier.innerHTML = panierItems.map((item, index) => `
+            document.getElementById('panier').innerHTML = panierItems.map((item, index) => `
                 <li class="flex justify-between items-center border-b py-2">
                     <span>${item.produit.label}</span>
                     <div class="flex items-center gap-2">
@@ -107,8 +108,7 @@
                 </li>
             `).join('');
 
-            const total = panierItems.reduce((sum, item) => sum + item.produit.price * item.quantite, 0);
-            document.getElementById('total').textContent = total;
+            document.getElementById('total').textContent = panierItems.reduce((sum, item) => sum + item.produit.price * item.quantite, 0);
 
             // Sauvegarde dans localStorage
             localStorage.setItem('panier', JSON.stringify(panierItems));
@@ -122,6 +122,31 @@
             panierItems.splice(index,1)
             afficherPanier();
         }
+
+        afficherPanier();
+
+        const searchbar = document.getElementById("search-bar");
+        searchbar.addEventListener('input', event => {
+            const value = event.target.value.toLowerCase()
+            produits.forEach(produit => {
+                const isVisible = produit.label.toLowerCase().includes(value) || produit.category.toLowerCase().includes(value)
+                produit.element.classList.toggle("hidden", !isVisible)
+            })
+        })
+
+        const productCardTemplate = document.querySelector("[data-product-template]")
+        const productCardContainer = document.querySelector("[data-product-cards-container]")
+        produits = produitsRecup.map(produit => {
+            const card = productCardTemplate.content.cloneNode(true).children[0]
+            card.querySelector("[data-page]").href = `http://localhost:3000/pages/page_produit?id=${produit.id}`
+            card.querySelector("[data-image]").src = produit.images[0]
+            card.querySelector("[data-label]").textContent = produit.label
+            card.querySelector("[data-description]").textContent = produit.description
+            card.querySelector("[data-price]").textContent = produit.price + " €"
+            card.querySelector("[data-button]").onclick = function() { ajouterAuPanier(produit.id) }
+            productCardContainer.append(card)
+            return {label: produit.label, category: produit.category, element: card}
+        })
     </script>
     
 </body>

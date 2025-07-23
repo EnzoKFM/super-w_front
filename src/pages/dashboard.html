@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Dashboard</title>
+    <link href="../css/output.css" rel="stylesheet">
+</head>
+<body>
+    <div class="text-center mb-5">
+        <h1 class="text-3xl underline">
+            Dashboard
+        </h1>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 gap-4 px-4 ">
+        <div class="border text-center p-4 rounded-lg">
+            <h2 class="text-2xl bold mb-18">Créer un produit</h2>
+            <form class="flex flex-col items-center gap-4" method="POST" action="http://localhost:5000/create_product">
+                <div class="flex items-center w-full max-w-md gap-4">
+                    <label for="label" class="w-32 text-left">Label:</label>
+                    <input type="text" id="label" name="label" class="flex-1 border border-gray-300 rounded px-2 py-1" />
+                </div>
+
+                <div class="flex items-center w-full max-w-md gap-4">
+                    <label for="description" class="w-32 text-left">Description:</label>
+                    <input type="text" id="description" name="description" class="flex-1 border border-gray-300 rounded px-2 py-1" />
+                </div>
+
+                <div class="flex items-center w-full max-w-md gap-4">
+                    <label for="images" class="w-32 text-left">Images:</label>
+                    <input type="file" id="images" name="image" class="flex-1" />
+                </div>
+
+                <div class="flex items-center w-full max-w-md gap-4">
+                    <label for="price" class="w-32 text-left">Prix:</label>
+                    <input type="text" id="price" name="price" class="flex-1 border border-gray-300 rounded px-2 py-1" />
+                </div>
+
+                <div class="flex items-center w-full max-w-md gap-4">
+                    <label for="category" class="w-32 text-left">Catégorie:</label>
+                    <input type="text" id="category" name="category" class="flex-1 border border-gray-300 rounded px-2 py-1" />
+                </div>
+
+                <div class="w-full max-w-md flex justify-center">
+                    <button type="submit" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded">Envoyer</button>
+                </div>
+            </form>
+        </div>
+        <div class="border text-center p-4 rounded-lg">
+            <h2 class="text-2xl bold mb-5">Modifier un produit</h2>
+            <select id="product-select-modify" class="border p-1 border-gray-300 rounded mb-5">
+                <option disabled selected>-- Choisissez un produit --</option>
+            </select>
+            <form class="flex flex-col items-center gap-4" method="POST" action="http://localhost:5000/modify_product">
+                <div class="flex items-center w-full max-w-md gap-4">
+                    <label for="change_label" class="w-32 text-left">Label:</label>
+                    <input type="text" id="change_label" name="label" class="flex-1 border border-gray-300 rounded px-2 py-1" />
+                </div>
+
+                <div class="flex items-center w-full max-w-md gap-4">
+                    <label for="change_description" class="w-32 text-left">Description:</label>
+                    <input type="text" id="change_description" name="description" class="flex-1 border border-gray-300 rounded px-2 py-1" />
+                </div>
+
+                <div class="flex items-center w-full max-w-md gap-4">
+                    <label for="change_images" class="w-32 text-left">Images:</label>
+                    <input type="file" id="change_images" name="images" class="flex-1" />
+                </div>
+
+                <div class="flex items-center w-full max-w-md gap-4">
+                    <label for="change_price" class="w-32 text-left">Prix:</label>
+                    <input type="text" id="change_price" name="price" class="flex-1 border border-gray-300 rounded px-2 py-1" />
+                </div>
+
+                <div class="flex items-center w-full max-w-md gap-4">
+                    <label for="change_category" class="w-32 text-left">Catégorie:</label>
+                    <input type="text" id="change_category" name="category" class="flex-1 border border-gray-300 rounded px-2 py-1" />
+                </div>
+
+                <div class="w-full max-w-md flex justify-center">
+                    <button type="submit" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded">Envoyer</button>
+                </div>
+            </form>
+        </div>
+        <div class="border text-center p-4 rounded-lg">
+            <h2 class="text-2xl bold mb-5">Supprimer un produit</h2>
+            <form class="flex flex-col items-center gap-4" method="POST" action="http://localhost:5000/delete_product">
+                <select id="product-select-delete" class="border p-1 border-gray-300 rounded mb-5">
+                    <option disabled selected>-- Choisissez un produit --</option>
+                </select>
+
+                <div class="w-full max-w-md flex justify-center">
+                    <button type="submit" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded">Envoyer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        const produits = [
+            { id: 0, label: "Lait au fraise", description: "Je suis un mignon produit", image: "../img/lait_fraise.png", price: 500, category: "categorie" },
+            { id: 1, label: "Salle de sport", description: "Je suis un mignon produit", image: "../img/salle_sport.jpg", price: 500, category: "categorie" },
+            { id: 2, label: "Game Cube", description: "Je suis un mignon produit", image: "../img/gamecube.jpg", price: 500, category: "categorie" }
+        ];
+
+        const modifySelect = document.getElementById('product-select-modify');
+        const deleteSelect = document.getElementById('product-select-delete');
+        produits.forEach((produit) => {
+            const option = document.createElement('option');
+            option.value = produit.id;
+            option.textContent = produit.label;
+            modifySelect.appendChild(option);
+        });
+        produits.forEach((produit) => {
+            const option = document.createElement('option');
+            option.value = produit.id;
+            option.textContent = produit.label;
+            deleteSelect.appendChild(option);
+        });
+
+        const label = document.getElementById('change_label')
+        const description = document.getElementById('change_description')
+        const images = document.getElementById('change_images')
+        const price = document.getElementById('change_price')
+        const category = document.getElementById('change_category')
+
+        modifySelect.addEventListener("change", () => {
+            const produitChoisi = produits.find(p => p.id == modifySelect.value);
+
+            if(produitChoisi){
+                label.value = produitChoisi.label
+                description.value = produitChoisi.description
+                images.fileName = produitChoisi.images
+                price.value = produitChoisi.price
+                category.value = produitChoisi.category
+            }
+        });
+    </script>
+</body>
+</html>

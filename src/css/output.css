@@ -193,6 +193,9 @@
   .right-5 {
     right: calc(var(--spacing) * 5);
   }
+  .mx-2 {
+    margin-inline: calc(var(--spacing) * 2);
+  }
   .mx-auto {
     margin-inline: auto;
   }
@@ -247,9 +250,6 @@
   .max-h-40 {
     max-height: calc(var(--spacing) * 40);
   }
-  .max-h-100 {
-    max-height: calc(var(--spacing) * 100);
-  }
   .w-32 {
     width: calc(var(--spacing) * 32);
   }
@@ -279,9 +279,6 @@
   }
   .flex-col {
     flex-direction: column;
-  }
-  .content-center {
-    align-content: center;
   }
   .items-center {
     align-items: center;

@@ -1,154 +1,199 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8" />
-    <title>Dashboard</title>
-    <link href="../css/output.css" rel="stylesheet">
-</head>
-<body>
-    <div class="text-center mb-5">
-        <h1 class="text-3xl underline">
-            Dashboard
-        </h1>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 gap-4 px-4 mb-5">
-        <div class="border text-center p-4 rounded-lg">
-            <h2 class="text-2xl bold mb-18">Créer un produit</h2>
-            <form class="flex flex-col items-center gap-4" method="POST" action="http://localhost:5000/create_product">
-                <input type="hidden" name="csrf_token" id="csrf-token-create">
-                <div class="flex items-center w-full max-w-md gap-4">
-                    <label for="label" class="w-32 text-left">Label:</label>
-                    <input type="text" id="label" name="label" class="flex-1 border border-gray-300 rounded px-2 py-1" />
-                </div>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Dashboard</title>
+        <link href="../css/output.css" rel="stylesheet" />
+    </head>
 
-                <div class="flex items-center w-full max-w-md gap-4">
-                    <label for="description" class="w-32 text-left">Description:</label>
-                    <input type="text" id="description" name="description" class="flex-1 border border-gray-300 rounded px-2 py-1" />
-                </div>
+    <body class="min-h-screen bg-cover bg-center text-gray-800 p-8" style="background-image: url('../assets/bg-watercolor.png');">
 
-                <div class="flex items-center w-full max-w-md gap-4">
-                    <label for="images" class="w-32 text-left">Images:</label>
-                    <input type="file" id="images" name="image" multiple class="flex-1" />
-                </div>
-
-                <div class="flex items-center w-full max-w-md gap-4">
-                    <label for="price" class="w-32 text-left">Prix:</label>
-                    <input type="text" id="price" name="price" class="flex-1 border border-gray-300 rounded px-2 py-1" />
-                </div>
-
-                <div class="flex items-center w-full max-w-md gap-4">
-                    <label for="category" class="w-32 text-left">Catégorie:</label>
-                    <input type="text" id="category" name="category" class="flex-1 border border-gray-300 rounded px-2 py-1" />
-                </div>
-
-                <div class="w-full max-w-md flex justify-center">
-                    <button type="submit" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded cursor-pointer">Envoyer</button>
-                </div>
-            </form>
+        <div class="text-center mb-10">
+            <h1 class="text-3xl font-bold underline">Dashboard</h1>
         </div>
-        <div class="border text-center p-4 rounded-lg">
-            <h2 class="text-2xl bold mb-5">Modifier un produit</h2>
-            <select id="product-select-modify" class="border p-1 border-gray-300 rounded mb-5">
-                <option disabled selected>-- Choisissez un produit --</option>
-            </select>
-            <form class="flex flex-col items-center gap-4" method="POST" action="http://localhost:5000/modify_product">
-                <input type="hidden" name="csrf_token" id="csrf-token-modify">
-                <div class="flex items-center w-full max-w-md gap-4">
-                    <label for="change_label" class="w-32 text-left">Label:</label>
-                    <input type="text" id="change_label" name="label" class="flex-1 border border-gray-300 rounded px-2 py-1" />
-                </div>
 
-                <div class="flex items-center w-full max-w-md gap-4">
-                    <label for="change_description" class="w-32 text-left">Description:</label>
-                    <input type="text" id="change_description" name="description" class="flex-1 border border-gray-300 rounded px-2 py-1" />
-                </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
+            <div class="bg-white shadow-md rounded-2xl p-6">
+                <h2 class="text-2xl font-semibold text-center mb-6">Créer un produit</h2>
+                <form method="POST" action="http://localhost:5000/create_product" class="space-y-4">
+                    <input type="hidden" name="csrf_token" id="csrf-token-create" />
 
-                <div class="flex items-center w-full max-w-md gap-4">
-                    <label for="change_images" class="w-32 text-left">Images:</label>
-                    <input type="file" id="change_images" name="images" multiple class="flex-1" />
-                </div>
+                    <input
+                        type="text"
+                        name="label"
+                        placeholder="Label"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="description"
+                        placeholder="Description"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                        required
+                    />
+                    <input
+                        type="file"
+                        name="images"
+                        multiple
+                        class="w-full"
+                    />
+                    <input
+                        type="number"
+                        step="0.01"
+                        name="price"
+                        placeholder="Prix"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="category"
+                        placeholder="Catégorie"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                        required
+                    />
 
-                <div class="flex items-center w-full max-w-md gap-4">
-                    <label for="change_price" class="w-32 text-left">Prix:</label>
-                    <input type="text" id="change_price" name="price" class="flex-1 border border-gray-300 rounded px-2 py-1" />
-                </div>
+                    <button type="submit" class="w-full bg-teal-500 text-white py-2 rounded-lg hover:bg-teal-600 transition-colors">
+                        Créer
+                    </button>
+                </form>
+            </div>
 
-                <div class="flex items-center w-full max-w-md gap-4">
-                    <label for="change_category" class="w-32 text-left">Catégorie:</label>
-                    <input type="text" id="change_category" name="category" class="flex-1 border border-gray-300 rounded px-2 py-1" />
-                </div>
-
-                <div class="w-full max-w-md flex justify-center">
-                    <button type="submit" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded cursor-pointer">Envoyer</button>
-                </div>
-            </form>
-        </div>
-        <div class="border text-center p-4 rounded-lg">
-            <h2 class="text-2xl bold mb-5">Supprimer un produit</h2>
-            <form class="flex flex-col items-center gap-4" method="POST" action="http://localhost:5000/delete_product">
-                <input type="hidden" name="csrf_token" id="csrf-token-delete">
-                <select id="product-select-delete" class="border p-1 border-gray-300 rounded mb-5">
+            <div class="bg-white shadow-md rounded-2xl p-6">
+                <h2 class="text-2xl font-semibold text-center mb-6">Modifier un produit</h2>
+                <select id="product-select-modify" class="w-full mb-4 px-4 py-2 border rounded">
                     <option disabled selected>-- Choisissez un produit --</option>
                 </select>
+                <form method="POST" action="http://localhost:5000/modify_product" class="space-y-4">
+                    <input type="hidden" name="csrf_token" id="csrf-token-modify" />
 
-                <div class="w-full max-w-md flex justify-center">
-                    <button type="submit" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded cursor-pointer">Envoyer</button>
-                </div>
-            </form>
+                    <input
+                        type="text"
+                        name="label"
+                        id="change_label"
+                        placeholder="Label"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                    />
+                    <input
+                        type="text"
+                        name="description"
+                        id="change_description"
+                        placeholder="Description"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                    />
+                    <input
+                        type="file"
+                        name="images"
+                        id="change_images"
+                        multiple
+                        class="w-full"
+                    />
+                    <input
+                        type="number"
+                        name="price"
+                        id="change_price"
+                        step="0.01"
+                        placeholder="Prix"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                    />
+                    <input
+                        type="text"
+                        name="category"
+                        id="change_category"
+                        placeholder="Catégorie"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                    />
+
+                    <button type="submit" class="w-full bg-yellow-500 text-white py-2 rounded-lg hover:bg-yellow-600 transition-colors">
+                        Modifier
+                    </button>
+                </form>
+            </div>
+
+            <div class="bg-white shadow-md rounded-2xl p-6">
+                <h2 class="text-2xl font-semibold text-center mb-6">Supprimer un produit</h2>
+                <form method="POST" action="http://localhost:5000/delete_product" class="space-y-4">
+                    <input type="hidden" name="csrf_token" id="csrf-token-delete" />
+
+                    <select id="product-select-delete" name="productId" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                        <option disabled selected>-- Choisissez un produit --</option>
+                    </select>
+
+                    <button type="submit" class="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition-colors">
+                        Supprimer
+                    </button>
+                </form>
+            </div>
         </div>
-    </div>
-    <div class="text-center">
-        <a href="http://localhost:3000/pages/home.html" class="border rounded border-gray-300 px-2 py-1 cursor-pointer">Se déconnecter</a>
-    </div>
-    <script>
-        let produits = [];
 
-        fetch("http://localhost:5000/generate_csrf", {
-            method:"GET",
-        })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            document.getElementById('csrf-token-create').value = data
-            document.getElementById('csrf-token-modify').value = data
-            document.getElementById('csrf-token-delete').value = data
-        })
-        
-        fetch("http://localhost:5000/get_all_products", {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-        })
-        .then(res => res.json())
-        .then(data => {
-            data.forEach(produit => {
-                const option = document.createElement('option');
-                option.value = produit.id;
-                option.textContent = produit.label;
+        <div class="text-center">
+            <button onclick="logout()" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded shadow transition">
+                Se déconnecter
+            </button>
+        </div>
 
-                const option2 = document.createElement('option');
-                option2.value = produit.id;
-                option2.textContent = produit.label;
-
-                document.getElementById('product-select-modify').appendChild(option);
-                document.getElementById('product-select-delete').appendChild(option2);
-            })
-
-            produits = data
-        })
-
-        document.getElementById('product-select-modify').addEventListener("change", () => {
-            const produitChoisi = produits.find(p => p.id == document.getElementById('product-select-modify').value);
-
-            if(produitChoisi){
-                document.getElementById('change_label').value = produitChoisi.label
-                document.getElementById('change_description').value = produitChoisi.description
-                document.getElementById('change_images').fileName = produitChoisi.images
-                document.getElementById('change_price').value = produitChoisi.price
-                document.getElementById('change_category').value = produitChoisi.category
+        <script>
+            // On vérifie si l'utilisateur est connecté
+            const token = localStorage.getItem("token");
+            if (!token) {
+                window.location.href = "/pages/connection.html";
             }
-        });
-    </script>
-</body>
+
+            let produits = [];
+
+            fetch("http://localhost:5000/generate_csrf", {
+                method: "GET",
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    document.getElementById('csrf-token-create').value = data
+                    document.getElementById('csrf-token-modify').value = data
+                    document.getElementById('csrf-token-delete').value = data
+                })
+
+            fetch("http://localhost:5000/get_all_products", {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    data.forEach(produit => {
+                        const option = document.createElement('option');
+                        option.value = produit.id;
+                        option.textContent = produit.label;
+
+                        const option2 = document.createElement('option');
+                        option2.value = produit.id;
+                        option2.textContent = produit.label;
+
+                        document.getElementById('product-select-modify').appendChild(option);
+                        document.getElementById('product-select-delete').appendChild(option2);
+                    })
+
+                    produits = data
+                })
+
+            document.getElementById('product-select-modify').addEventListener("change", () => {
+                const produitChoisi = produits.find(p => p.id == document.getElementById('product-select-modify').value);
+
+                if (produitChoisi) {
+                    document.getElementById('change_label').value = produitChoisi.label
+                    document.getElementById('change_description').value = produitChoisi.description
+                    document.getElementById('change_images').fileName = produitChoisi.images
+                    document.getElementById('change_price').value = produitChoisi.price
+                    document.getElementById('change_category').value = produitChoisi.category
+                }
+            });
+
+            function logout() {
+                localStorage.removeItem("token");
+                window.location.href = "/pages/home.html";
+            }
+        </script>
+
+    </body>
 </html>

@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="text-center">
-        <h1 id="label-produit" class="text-3xl font-bold mb-5">Chargement...</h1>
+        <h1 id="name-produit" class="text-3xl font-bold mb-5">Chargement...</h1>
         <div class="carousel text-center">
             <div class="carousel-container">
                 <img id="carousel-image" src="" alt="Image du produit" class="mx-auto h-64" />
@@ -26,11 +26,6 @@
     </div>
 
     <script>
-        const produits = [
-            { id: 0, label: "Lait au fraise", description: "Je suis un mignon produit", images: ["../img/lait_fraise.png", "../img/salle_sport.jpg", "../img/gamecube.jpg"], price: 500, category: "categorie" },
-            { id: 1, label: "Salle de sport", description: "Je suis un mignon produit", images: ["../img/salle_sport.jpg"], price: 500, category: "categorie" },
-            { id: 2, label: "Game Cube", description: "Je suis un mignon produit", images: ["../img/gamecube.jpg"], price: 500, category: "categorie" }
-        ];
         let indexImage = 0;
         let imagesProduit = [];
 
@@ -48,21 +43,27 @@
         const urlParams = new URLSearchParams(window.location.search);
         const produitId = parseInt(urlParams.get('id'));
 
-        // Chercher le produit correspondant
-        const produit = produits.find(p => p.id === produitId);
+        fetch(`http://localhost:5000/product/list?id=${produitId}`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+        })
+        .then(res => res.json())
+        .then(produit => {
+            if (produit) {
+                document.getElementById("name-produit").textContent = produit.data_content.name;
+                document.getElementById("description-produit").textContent = produit.data_content.description;
+                document.getElementById("price-produit").textContent = produit.data_content.price;
 
-        if (produit) {
-            document.getElementById("label-produit").textContent = produit.label;
-            document.getElementById("description-produit").textContent = produit.description;
-            document.getElementById("price-produit").textContent = produit.price;
-
-            imagesProduit = produit.images;
-            // Initialisation
-            showImage();
-            setInterval(() => changeImage(1), 4000);
-        } else {
-            document.body.innerHTML = "<h2>Produit introuvable</h2>";
-        }
+                imagesProduit = produit.data_content.images;
+                // Initialisation
+                showImage();
+                setInterval(() => changeImage(1), 4000);
+            } else {
+                document.body.innerHTML = "<h2>Produit introuvable</h2>";
+            }
+        })
     </script>
 </body>
 </html>

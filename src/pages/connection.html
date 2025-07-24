@@ -75,7 +75,12 @@
                         alert("Connexion réussie !");
                         window.location.href = "/pages/dashboard.html";
                     } else {
-                        alert(data.message || "Erreur lors de la connexion.");
+                        if (data.errors) {
+                            const messages = Object.values(data.errors).join("\n");
+                            alert(messages);
+                        } else {
+                            alert(data.message || "Erreur lors de la connexion.");
+                        }
                     }
 
                 } catch (error) {

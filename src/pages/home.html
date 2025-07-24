@@ -44,8 +44,8 @@
             <template data-product-template>
                 <li class="border rounded p-4 text-center shadow hover:shadow-lg transition">
                     <a href="http://localhost:3000/pages/page_produit?id=${produit.id}" data-page>
-                        <img src="${produit.images[0]}" alt="${produit.label}" class="mx-auto mb-2 max-h-40 object-contain" data-image>
-                        <h3 class="text-lg font-semibold" data-label></h3>
+                        <img src="" alt="${produit.name}" class="mx-auto mb-2 max-h-40 object-contain" data-image>
+                        <h3 class="text-lg font-semibold" data-name></h3>
                     </a>
                     <p class="text-gray-500" data-description></p>
                     <p class="text-xl font-bold my-2" data-price></p>
@@ -63,7 +63,7 @@
         // Récupérer le panier depuis localStorage ou tableau vide par défaut
         const panierItems = JSON.parse(localStorage.getItem('panier')) || [];
 
-        fetch("http://localhost:5000/get_all_products", {
+        fetch("http://localhost:5000/product/list", {
             method: "GET",
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -71,12 +71,12 @@
         })
         .then(res => res.json())
         .then(data => {
-            produits = data.map(produit => {
+            produits = data.data_content.map(produit => {
                 const card = document.querySelector("[data-product-template]").content.cloneNode(true).children[0]
                 card.querySelector("[data-page]").href = `http://localhost:3000/pages/page_produit?id=${produit.id}`
-                card.querySelector("[data-image]").src = produit.images[0]
-                card.querySelector("[data-label]").textContent = produit.label
+                card.querySelector("[data-name]").textContent = produit.name
                 card.querySelector("[data-description]").textContent = produit.description
+                //card.querySelector("[data-image]").src = produit.images[0]
                 card.querySelector("[data-price]").textContent = produit.price + " €"
                 card.querySelector("[data-button]").onclick = function() { 
                     const index = panierItems.findIndex(item => item.produit.id === produit.id);
@@ -90,7 +90,7 @@
                     afficherPanier();
                  }
                 document.querySelector("[data-product-cards-container]").append(card)
-                return {label: produit.label, category: produit.category, element: card}
+                return {name: produit.name, category: produit.category, element: card}
             })
         })
 
@@ -106,7 +106,7 @@
         function afficherPanier() {
             document.getElementById('panier').innerHTML = panierItems.map((item, index) => `
                 <li class="flex justify-between items-center border-b py-2">
-                    <span>${item.produit.label}</span>
+                    <span>${item.produit.name}</span>
                     <div class="flex items-center gap-2">
                         <button onclick="modifierQuantite(${index}, ${item.quantite - 1})" class="text-red-500 font-bold px-2 cursor-pointer">-</button>
                         <span>${item.quantite}</span>
@@ -140,7 +140,7 @@
         searchbar.addEventListener('input', event => {
             const value = event.target.value.toLowerCase()
             produits.forEach(produit => {
-                const isVisible = produit.label.toLowerCase().includes(value) || produit.category.toLowerCase().includes(value)
+                const isVisible = produit.name.toLowerCase().includes(value) || produit.category.toLowerCase().includes(value)
                 produit.element.classList.toggle("hidden", !isVisible)
             })
         })

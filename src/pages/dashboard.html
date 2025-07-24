@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <title>Dashboard</title>
         <link href="../css/output.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     </head>
 
     <body class="min-h-screen bg-cover bg-center text-gray-800 p-8" style="background-image: url('../assets/bg-watercolor.png');">
@@ -14,7 +15,7 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
             <div class="bg-white shadow-md rounded-2xl p-6">
-                <h2 class="text-2xl font-semibold text-center mb-6">Créer un produit</h2>
+                <h2 class="text-2xl font-semibold text-center mb-10">Créer un produit</h2>
                 <form id="product-form-create" class="space-y-4">
                     <input type="hidden" name="csrf_token" id="csrf-token-create" />
 
@@ -207,6 +208,18 @@
                     },
                     body: JSON.stringify(payload)
                 });
+
+                Toastify({
+                    text: "Produit crée",
+                    duration: 3000,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "linear-gradient(to right, #40d130, #17870b)",
+                    },
+                }).showToast();
             });
 
             document.getElementById('product-form-modify').addEventListener('submit', async function(e) {
@@ -234,6 +247,18 @@
                     },
                     body: JSON.stringify(payload)
                 });
+
+                Toastify({
+                    text: "Produit modifié",
+                    duration: 3000,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "linear-gradient(to right, #f2ef33, #b8b50b)",
+                    },
+                }).showToast();
             });
 
             document.getElementById('product-form-delete').addEventListener('submit', async function(e) {
@@ -256,6 +281,18 @@
                     },
                     body: JSON.stringify(payload)
                 });
+
+                Toastify({
+                    text: "Produit supprimée",
+                    duration: 3000,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "linear-gradient(to right, #c92424, #9c0505)",
+                    },
+                }).showToast();
             });
 
             function logout() {
@@ -263,6 +300,6 @@
                 window.location.href = "/pages/home.html";
             }
         </script>
-
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     </body>
 </html>

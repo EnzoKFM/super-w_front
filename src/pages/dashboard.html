@@ -128,13 +128,47 @@
         </div>
 
         <script>
+            function setToast(message, type) {
+                localStorage.setItem("pendingToast", JSON.stringify({ message, type }));
+
+                window.location.reload();
+            }
+
+            function logout() {
+                localStorage.removeItem("token");
+                window.location.href = "/pages/home.html";
+            }
+
+            let produits = [];
+
             // On vérifie si l'utilisateur est connecté
             const token = localStorage.getItem("token");
             if (!token) {
                 window.location.href = "/pages/connection.html";
             }
 
-            let produits = [];
+            window.addEventListener("DOMContentLoaded", () => {
+                const storedToast = localStorage.getItem("pendingToast");
+                if (storedToast) {
+                    const { message, type } = JSON.parse(storedToast);
+
+                    // Affiche le toast
+                    Toastify({
+                        text: message,
+                        duration: 3000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        stopOnFocus: true,
+                        style: {
+                            background: type,
+                        },
+                    }).showToast();
+
+                    // Supprime après affichage
+                    localStorage.removeItem("pendingToast");
+                }
+            });
 
             fetch("http://localhost:5000/csrf/generate_token", {
                 method: "GET",
@@ -209,17 +243,7 @@
                     body: JSON.stringify(payload)
                 });
 
-                Toastify({
-                    text: "Produit crée",
-                    duration: 3000,
-                    close: true,
-                    gravity: "top", // `top` or `bottom`
-                    position: "right", // `left`, `center` or `right`
-                    stopOnFocus: true, // Prevents dismissing of toast on hover
-                    style: {
-                        background: "linear-gradient(to right, #40d130, #17870b)",
-                    },
-                }).showToast();
+                setToast("Produit crée", "linear-gradient(to right, #40d130, #17870b)")
             });
 
             document.getElementById('product-form-modify').addEventListener('submit', async function(e) {
@@ -248,17 +272,7 @@
                     body: JSON.stringify(payload)
                 });
 
-                Toastify({
-                    text: "Produit modifié",
-                    duration: 3000,
-                    close: true,
-                    gravity: "top", // `top` or `bottom`
-                    position: "right", // `left`, `center` or `right`
-                    stopOnFocus: true, // Prevents dismissing of toast on hover
-                    style: {
-                        background: "linear-gradient(to right, #f2ef33, #b8b50b)",
-                    },
-                }).showToast();
+                setToast("Produit modifié", "linear-gradient(to right, #f2ef33, #b8b50b)")
             });
 
             document.getElementById('product-form-delete').addEventListener('submit', async function(e) {
@@ -282,23 +296,8 @@
                     body: JSON.stringify(payload)
                 });
 
-                Toastify({
-                    text: "Produit supprimée",
-                    duration: 3000,
-                    close: true,
-                    gravity: "top", // `top` or `bottom`
-                    position: "right", // `left`, `center` or `right`
-                    stopOnFocus: true, // Prevents dismissing of toast on hover
-                    style: {
-                        background: "linear-gradient(to right, #c92424, #9c0505)",
-                    },
-                }).showToast();
+                setToast("Produit supprimé", "linear-gradient(to right, #c92424, #9c0505)");
             });
-
-            function logout() {
-                localStorage.removeItem("token");
-                window.location.href = "/pages/home.html";
-            }
         </script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     </body>

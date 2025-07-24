@@ -71,27 +71,31 @@
         })
         .then(res => res.json())
         .then(data => {
-            produits = data.data_content.map(produit => {
-                const card = document.querySelector("[data-product-template]").content.cloneNode(true).children[0]
-                card.querySelector("[data-page]").href = `http://localhost:3000/pages/page_produit?id=${produit.id}`
-                card.querySelector("[data-name]").textContent = produit.name
-                card.querySelector("[data-description]").textContent = produit.description
-                //card.querySelector("[data-image]").src = produit.images[0]
-                card.querySelector("[data-price]").textContent = produit.price + " €"
-                card.querySelector("[data-button]").onclick = function() { 
-                    const index = panierItems.findIndex(item => item.produit.id === produit.id);
-                    if (index !== -1) {
-                        // Produit déjà dans le panier : on augmente la quantité
-                        panierItems[index].quantite++;
-                    } else {
-                        // Nouveau produit ajouté
-                        panierItems.push({ produit, quantite: 1 });
+            if(data.data_content.length == 0){
+                document.getElementById("listProduits").innerHTML = "Aucun produit"
+            } else {
+                produits = data.data_content.map(produit => {
+                    const card = document.querySelector("[data-product-template]").content.cloneNode(true).children[0]
+                    card.querySelector("[data-page]").href = `http://localhost:3000/pages/page_produit?id=${produit.id}`
+                    card.querySelector("[data-name]").textContent = produit.name
+                    card.querySelector("[data-description]").textContent = produit.description
+                    //card.querySelector("[data-image]").src = produit.images[0]
+                    card.querySelector("[data-price]").textContent = produit.price + " €"
+                    card.querySelector("[data-button]").onclick = function() { 
+                        const index = panierItems.findIndex(item => item.produit.id === produit.id);
+                        if (index !== -1) {
+                            // Produit déjà dans le panier : on augmente la quantité
+                            panierItems[index].quantite++;
+                        } else {
+                            // Nouveau produit ajouté
+                            panierItems.push({ produit, quantite: 1 });
+                        }
+                        afficherPanier();
                     }
-                    afficherPanier();
-                 }
-                document.querySelector("[data-product-cards-container]").append(card)
-                return {name: produit.name, category: produit.category, element: card}
-            })
+                    document.querySelector("[data-product-cards-container]").append(card)
+                    return {name: produit.name, category: produit.category, element: card}
+                })
+            }
         })
 
         function modifierQuantite(index, nouvelleQuantite) {

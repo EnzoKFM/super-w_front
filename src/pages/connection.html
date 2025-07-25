@@ -75,9 +75,13 @@
                         alert("Connexion réussie !");
                         window.location.href = "/pages/dashboard.html";
                     } else {
-                        alert(data.errors.password || "Erreur lors de l'inscription");
+                        if (data.errors) {
+                            const messages = Object.values(data.errors).join("\n");
+                            alert(messages);
+                        } else {
+                            alert(data.message || "Erreur lors de la connexion.");
+                        }
                     }
-
                 } catch (error) {
                     console.error("Erreur réseau :", error);
                     alert("Erreur serveur");

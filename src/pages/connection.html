@@ -75,7 +75,7 @@
                         alert("Connexion réussie !");
                         window.location.href = "/pages/dashboard.html";
                     } else {
-                        alert(data.message || "Erreur lors de la connexion.");
+                        alert(data.errors.password || "Erreur lors de l'inscription");
                     }
 
                 } catch (error) {

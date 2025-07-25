@@ -79,7 +79,7 @@
                     card.querySelector("[data-page]").href = `http://localhost:3000/pages/page_produit?id=${produit.id}`
                     card.querySelector("[data-name]").textContent = produit.name
                     card.querySelector("[data-description]").textContent = produit.description
-                    //card.querySelector("[data-image]").src = produit.images[0]
+                    card.querySelector("[data-image]").src = produit.images[0].url
                     card.querySelector("[data-price]").textContent = produit.price + " €"
                     card.querySelector("[data-button]").onclick = function() { 
                         const index = panierItems.findIndex(item => item.produit.id === produit.id);

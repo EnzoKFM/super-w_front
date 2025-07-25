@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <link href="../css/output.css" rel="stylesheet">
+</head>
+<body>
+    <div class="text-center">
+        <h1 id="name-produit" class="text-3xl font-bold mb-5">Chargement...</h1>
+        <div class="carousel text-center">
+            <div class="carousel-container">
+                <img id="carousel-image" src="" alt="Image du produit" class="mx-auto h-64" />
+            </div>
+            <div class="mt-4">
+                <button id="changeImageDown">◀</button>
+                <button id="changeImageUp" >▶</button>
+            </div>
+        </div>
+        <div class="mb-10">
+            <p id="description-produit"></p>
+            <p><strong>Prix :</strong> <span id="price-produit"></span> €</p>
+        </div>
+
+        <a href="http://localhost:3000" class="border rounded border-gray-300 px-2 py-1 cursor-pointer">Retour</a>
+    </div>
+
+    <script src="/js/page_produit.js"></script>
+</body>
+</html>

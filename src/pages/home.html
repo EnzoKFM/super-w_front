@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Accueil</title>
+    <link href="../css/output.css" rel="stylesheet">
+</head>
+<body>
+    <div>
+        <div class="text-center mb-5">
+            <h1 class="text-3xl underline">
+                Bienvenue à Super-W !
+            </h1>
+            <h2 class="text-xl">
+                Ici, tout nos produits sont fait-maison, et avec amour !
+            </h2>
+            
+        </div>
+        <div class="fixed right-5 top-3">
+            <button onClick="togglePanier()" class="cursor-pointer">
+                <img src="../img/panier.png" class="mx-auto mb-2 max-h-12">
+            </button>
+            <a href="http://localhost:3000/connection" >
+                <button class="cursor-pointer">
+                    <img src="../img/user.png" class="mx-auto mb-2 max-h-12">
+                </button>
+            </a>
+            
+        </div>
+        <div id="panierOverlay" class="fixed inset-0 bg-black/50 flex justify-end hidden">
+            <div class="bg-white w-80 p-4 shadow-lg overflow-y-auto">
+                <button onclick="togglePanier()" class="text-red-500 font-bold mb-4 cursor-pointer">Fermer</button>
+                <h2 class="text-2xl font-bold mb-2">Votre Panier</h2>
+                <ul id="panier" class="space-y-2"></ul>
+                <p class="mt-2 font-bold">Total : <span id="total">0</span> €</p>
+            </div>
+        </div>
+    </div>
+    <div class="my-2">
+        <input id="search-bar" type="search" placeholder="Rechercher un produit..." class="border rounded border-gray-300 px-2 py-1 mx-2"/>
+    </div>
+    <div>
+        <ul id="listProduits" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mx-2" data-product-cards-container>
+            <template data-product-template>
+                <li class="border rounded p-4 text-center shadow hover:shadow-lg transition">
+                    <a href="" data-page>
+                        <img src="" alt="${produit.name}" class="mx-auto mb-2 max-h-40 object-contain" data-image>
+                        <h3 class="text-lg font-semibold" data-name></h3>
+                    </a>
+                    <p class="text-gray-500" data-description></p>
+                    <p class="text-xl font-bold my-2" data-price></p>
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition cursor-pointer" data-button>
+                        Ajouter au panier
+                    </button>
+                </li>
+            </template>
+        </ul>
+    </div>
+
+    <script src="/js/home.js"></script>
+    
+</body>
+</html>

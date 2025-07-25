@@ -15,7 +15,7 @@ app.use(
         "style-src": ["'self'", "https://cdn.jsdelivr.net"],
         "img-src": ["'self'", "localhost:5000"],
         "connectSrc": ["'self'", 'http://localhost:5000'],
-        "report-uri": "/csp-report"
+        "report-uri": "http://localhost:5000/csp-report"
         },
     })
 )
@@ -44,9 +44,8 @@ app.get('/page_produit', (req, res) => {
     res.sendFile(path.join(__dirname, 'src', 'pages', 'page_produit.html'));
 });
 
-app.post('/csp-report', express.json({ type: ['json', 'application/csp-report'] }), (req, res) => {
-    console.warn('🛡️ CSP Violation Report:', JSON.stringify(req.body, null, 2));
-    res.status(204).end(); // pas de réponse nécessaire
+app.get('/csp', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src', 'pages', 'csp.html'));
 });
 
 app.listen(PORT, () => {

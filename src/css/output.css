@@ -579,6 +579,9 @@
     }
   }
 }
+#div-admin {
+  background-image: url('../assets/bg-watercolor.png');
+}
 @property --tw-space-y-reverse {
   syntax: "*";
   inherits: false;

@@ -11,8 +11,8 @@ app.use(
     helmet.contentSecurityPolicy({
         directives: {
         "default-src": ["'self'"],
-        "script-src": ["'self'", "https://cdn.jsdelivr.net"],
-        "style-src": ["'self'", "https://cdn.jsdelivr.net"],
+        "script-src": ["'self'", "https://cdn.jsdelivr.net/npm/toastify-js"],
+        "style-src": ["'self'", "https://cdn.jsdelivr.net/npm/toastify-js"],
         "img-src": ["'self'", "localhost:5000"],
         "connectSrc": ["'self'", 'http://localhost:5000'],
         "report-uri": "http://localhost:5000/csp-report"

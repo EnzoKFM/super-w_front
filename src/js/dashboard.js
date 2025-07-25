@@ -9,6 +9,10 @@ document.getElementById('logout-button').addEventListener('click', () => {
     window.location.href = "/";
 });
 
+document.getElementById('rapport-csp').addEventListener('click', () => {
+    window.location.href = "/csp";
+});
+
 let produits = [];
 
 // On vérifie si l'utilisateur est connecté

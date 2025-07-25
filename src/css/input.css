@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+#div-admin {
+    background-image: url('../assets/bg-watercolor.png');
+}

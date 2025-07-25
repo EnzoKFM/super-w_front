@@ -1,16 +1,19 @@
 {
   "name": "super-w_front",
   "version": "1.0.0",
-  "main": "src/home.html",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx @tailwindcss/cli -i ./src/css/input.css -o ./src/css/output.css --watch | serve src"
+    "css" : "npx @tailwindcss/cli -i ./src/css/input.css -o ./src/css/output.css",
+    "dev": "node --watch index.js"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "@tailwindcss/cli": "^4.1.11",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
     "serve": "^14.2.4",
     "tailwindcss": "^4.1.11",
     "toastify-js": "^1.12.0"

@@ -16,7 +16,7 @@
         <div id="div-base" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
             <div class="bg-white shadow-md rounded-2xl p-6">
                 <h2 class="text-2xl font-semibold text-center mb-10">Créer un produit</h2>
-                <form id="product-form-create" class="space-y-4">
+                <form id="product-form-create" class="space-y-4" enctype="multipart/form-data">
                     <input type="hidden" name="csrf_token" id="csrf-token-create" />
 
                     <input
@@ -66,7 +66,7 @@
                 <select id="product-select-modify" class="w-full mb-4 px-4 py-2 border rounded">
                     <option disabled selected>-- Choisissez un produit --</option>
                 </select>
-                <form id="product-form-modify"  class="space-y-4">
+                <form id="product-form-modify"  class="space-y-4" enctype="multipart/form-data">
                     <input type="hidden" name="csrf_token" id="csrf-token-modify" />
 
                     <input
@@ -229,24 +229,15 @@
 
                 const formData = new FormData(this);
 
-                const payload = {
-                    name: formData.get('name'),
-                    description: formData.get('description'),
-                    images: formData.get('images'),
-                    price: parseInt(formData.get('price')),
-                    category: formData.get('category')
-                };
-
                 const csrfToken = formData.get('csrf_token')
 
                 await fetch('http://localhost:5000/product/new', {
                     method: 'PUT',
                     headers: {
-                    'Content-Type': 'application/json',
                     'X-CSRF-token': csrfToken,
                     'Authorization': `Bearer ${token}`
                     },
-                    body: JSON.stringify(payload)
+                    body: formData
                 });
 
                 setToast("Produit crée", "linear-gradient(to right, #40d130, #17870b)")

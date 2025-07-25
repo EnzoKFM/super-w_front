@@ -31,7 +31,7 @@
 
         function showImage() {
             const imgElement = document.getElementById("carousel-image");
-            imgElement.src = imagesProduit[indexImage];
+            imgElement.src = imagesProduit[indexImage].url;
         }
 
         function changeImage(direction) {
@@ -43,7 +43,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const produitId = parseInt(urlParams.get('id'));
 
-        fetch(`http://localhost:5000/product/list?id=${produitId}`, {
+        fetch(`http://localhost:5000/product/details?id=${produitId}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'

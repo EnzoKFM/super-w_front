@@ -1,6 +1,14 @@
 let indexImage = 0;
 let imagesProduit = [];
 
+document.getElementById('changeImageDown').addEventListener('click', () => {
+    changeImage(-1)
+});
+
+document.getElementById('changeImageUp').addEventListener('click', () => {
+    changeImage(1)
+});
+
 function showImage() {
     const imgElement = document.getElementById("carousel-image");
     imgElement.src = imagesProduit[indexImage].url;
